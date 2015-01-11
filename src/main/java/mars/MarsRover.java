@@ -4,20 +4,25 @@ import java.util.ArrayList;
 
 public class MarsRover {
 
-	private int x;
-	private int y;
+	private Coordinates coordinates;
 
-	public MarsRover(int x_coord, int y_coord, Direction direction) {
-		this.x = x_coord;
-		this.y = y_coord;
+	public MarsRover(Coordinates startCoordinates, Direction north) {
+		coordinates = new Coordinates(0,0);
 	}
 
 	public boolean alive() {
 		return true;
 	}
 
-	public boolean move(ArrayList<RoverCommand> commands) {
-		return true;
+	public Coordinates move(ArrayList<RoverCommand> commands) {
+		 
+		for (RoverCommand command : commands) {
+			if (command == RoverCommand.FORWARD) {
+				coordinates = new Coordinates(0,coordinates.getY() + 1);
+			}
+		}
+		
+		return coordinates;
 	}
 	
 }
