@@ -22,34 +22,35 @@ public class MarsRover {
 		 
 		for (RoverCommand command : commands) {
 			setDirection(command);
-			
-			if (command == RoverCommand.FORWARD && direction.equals(Direction.NORTH)) {
-				coordinates = new Coordinates(coordinates.getX(),coordinates.getY() + 1);
-			}
-			else if (command == RoverCommand.FORWARD && direction.equals(Direction.SOUTH)) {
-				coordinates = new Coordinates(coordinates.getX(), coordinates.getY() - 1);
-			}
-			else if (command == RoverCommand.FORWARD && direction.equals(Direction.EAST)) {
-				coordinates = new Coordinates(coordinates.getX() + 1, coordinates.getY());
-			}
-			else if (command == RoverCommand.BACKWARD && direction.equals(Direction.NORTH)) {
-				coordinates = new Coordinates(coordinates.getX(), coordinates.getY() - 1);
-			}
-			else if (command == RoverCommand.BACKWARD && direction.equals(Direction.WEST)) {
-				coordinates = new Coordinates(coordinates.getX() + 1, coordinates.getY());
-			}
-			else if (command == RoverCommand.BACKWARD && direction.equals(Direction.EAST)) {
-				coordinates = new Coordinates(coordinates.getX() - 1, coordinates.getY());
-			}
-			else if (command == RoverCommand.FORWARD && direction.equals(Direction.WEST)) {
-				coordinates = new Coordinates(coordinates.getX() - 1,coordinates.getY());
-			}
-			else if (command == RoverCommand.FORWARD && direction.equals(Direction.EAST)) {
-				coordinates = new Coordinates(coordinates.getX() + 1,coordinates.getY());
-			}
+			moveDirection(command);
 		}
 		
 		return coordinates;
+	}
+
+	private void moveDirection(RoverCommand command) {
+		
+		if (command == RoverCommand.FORWARD) {
+			if (direction.equals(Direction.NORTH))
+				coordinates = new Coordinates(coordinates.getX(),coordinates.getY() + 1);
+			else if (direction.equals(Direction.SOUTH))
+				coordinates = new Coordinates(coordinates.getX(), coordinates.getY() - 1);
+			else if (direction.equals(Direction.EAST))
+				coordinates = new Coordinates(coordinates.getX() + 1,coordinates.getY());
+			else
+				coordinates = new Coordinates(coordinates.getX() - 1, coordinates.getY());
+		}
+		
+		
+		if (command == RoverCommand.BACKWARD && direction.equals(Direction.NORTH)) {
+			coordinates = new Coordinates(coordinates.getX(), coordinates.getY() - 1);
+		}
+		else if (command == RoverCommand.BACKWARD && direction.equals(Direction.WEST)) {
+			coordinates = new Coordinates(coordinates.getX() + 1, coordinates.getY());
+		}
+		else if (command == RoverCommand.BACKWARD && direction.equals(Direction.EAST)) {
+			coordinates = new Coordinates(coordinates.getX() - 1, coordinates.getY());
+		}
 	}
 
 	private void setDirection(RoverCommand command) {
