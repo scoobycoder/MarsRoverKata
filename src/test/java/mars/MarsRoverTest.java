@@ -143,6 +143,62 @@ public class MarsRoverTest {
 		
 		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
 	}
+	
+	@Test
+	public void roverShouldTurnLeftThreeTimesAndMoveForward() {
+		turnLeft();
+		turnLeft();
+		turnLeft();
+		moveForward();
+		Coordinates expectedCoordinates = new Coordinates(1,0);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void roverShouldTurnLeftFourTimesAndMoveForward() {
+		turnLeft();
+		turnLeft();
+		turnLeft();
+		turnLeft();
+		moveForward();
+		Coordinates expectedCoordinates = new Coordinates(0,1);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void roverShouldTurnRightThreeTimesAndMoveForward() {
+		turnRight();
+		turnRight();
+		turnRight();
+		moveForward();
+		Coordinates expectedCoordinates = new Coordinates(-1,0);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void roverShouldTurnRightFourTimesAndMoveForward() {
+		turnRight();
+		turnRight();
+		turnRight();
+		turnRight();
+		moveForward();
+		Coordinates expectedCoordinates = new Coordinates(0,1);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	
 
 
 }
