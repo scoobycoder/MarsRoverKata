@@ -8,7 +8,7 @@ public class MarsRover {
 	private Direction direction;
 
 	public MarsRover(Coordinates startCoordinates, Direction startDirection) {
-		coordinates = new Coordinates(0,0);
+		coordinates = startCoordinates;
 		direction = startDirection;
 	}
 
@@ -24,10 +24,17 @@ public class MarsRover {
 				direction = Direction.WEST;
 			}
 			
+			if (command == RoverCommand.RIGHTTURN) {
+				direction = Direction.EAST;
+			}
+			
 			if (command == RoverCommand.FORWARD && direction.equals(Direction.NORTH)) {
 				coordinates = new Coordinates(coordinates.getX(),coordinates.getY() + 1);
 			}
 			else if (command == RoverCommand.FORWARD && direction.equals(Direction.WEST)) {
+				coordinates = new Coordinates(coordinates.getX() - 1,coordinates.getY());
+			}
+			else if (command == RoverCommand.FORWARD && direction.equals(Direction.EAST)) {
 				coordinates = new Coordinates(coordinates.getX() + 1,coordinates.getY());
 			}
 		}
