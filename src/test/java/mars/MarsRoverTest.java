@@ -50,5 +50,16 @@ public class MarsRoverTest {
 		
 		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
 	}
+	
+	@Test
+	public void roverShouldTurnLeftMoveForwardAndReportCoordinates() {
+		commands.add(RoverCommand.LEFTTURN);
+		commands.add(RoverCommand.FORWARD);
+		Coordinates expectedCoordinates = new Coordinates(1,0);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
 
 }
