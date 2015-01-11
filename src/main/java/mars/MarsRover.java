@@ -21,15 +21,36 @@ public class MarsRover {
 		for (RoverCommand command : commands) {
 			
 			if (command == RoverCommand.LEFTTURN) {
-				direction = Direction.WEST;
+				if (direction.equals(Direction.WEST)) {
+					direction = Direction.SOUTH;
+				} else {
+					direction = Direction.WEST;
+				}
+			}
+			else if (command == RoverCommand.RIGHTTURN) {
+				if (direction.equals(Direction.EAST)) {
+					direction = Direction.SOUTH;
+				}
+				else {
+					direction = Direction.EAST;
+				}
 			}
 			
-			if (command == RoverCommand.RIGHTTURN) {
-				direction = Direction.EAST;
-			}
 			
 			if (command == RoverCommand.FORWARD && direction.equals(Direction.NORTH)) {
 				coordinates = new Coordinates(coordinates.getX(),coordinates.getY() + 1);
+			}
+			else if (command == RoverCommand.FORWARD && direction.equals(Direction.SOUTH)) {
+				coordinates = new Coordinates(coordinates.getX(), coordinates.getY() - 1);
+			}
+			else if (command == RoverCommand.BACKWARD && direction.equals(Direction.NORTH)) {
+				coordinates = new Coordinates(coordinates.getX(), coordinates.getY() - 1);
+			}
+			else if (command == RoverCommand.BACKWARD && direction.equals(Direction.WEST)) {
+				coordinates = new Coordinates(coordinates.getX() + 1, coordinates.getY());
+			}
+			else if (command == RoverCommand.BACKWARD && direction.equals(Direction.EAST)) {
+				coordinates = new Coordinates(coordinates.getX() - 1, coordinates.getY());
 			}
 			else if (command == RoverCommand.FORWARD && direction.equals(Direction.WEST)) {
 				coordinates = new Coordinates(coordinates.getX() - 1,coordinates.getY());

@@ -22,6 +22,10 @@ public class MarsRoverTest {
 	private void moveForward() {
 		commands.add(RoverCommand.FORWARD);
 	}
+	private void moveBackwards() {
+		
+		commands.add(RoverCommand.BACKWARD);
+	}
 	
 	private void turnLeft() {
 		commands.add(RoverCommand.LEFTTURN);
@@ -44,7 +48,7 @@ public class MarsRoverTest {
 	}
 
 	@Test
-	public void roverShouldReceiveOneCommandAndReportCoordinates() {
+	public void roverShouldReceiveOneCommand() {
 		moveForward();
 		Coordinates expectedCoordinates = new Coordinates(0,1);
 
@@ -64,7 +68,7 @@ public class MarsRoverTest {
 	}
 	
 	@Test
-	public void roverShouldTurnLeftMoveForwardAndReportCoordinates() {
+	public void roverShouldTurnLeftMoveForward() {
 		turnLeft();
 		moveForward();
 		Coordinates expectedCoordinates = new Coordinates(-1,0);
@@ -75,7 +79,7 @@ public class MarsRoverTest {
 	}
 	
 	@Test
-	public void roverShouldTurnRightMoveForwardAndReportCoordinates() {
+	public void roverShouldTurnRightMoveForward() {
 		turnRight();
 		moveForward();
 		Coordinates expectedCoordinates = new Coordinates(1,0);
@@ -84,5 +88,61 @@ public class MarsRoverTest {
 
 		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
 	}
+	
+	@Test
+	public void roverShouldMoveBackAndReportCoordinates() {
+		moveBackwards();
+		Coordinates expectedCoordinates = new Coordinates(0,-1);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void roverShouldTurnLeftAndMoveBack() {
+		turnLeft();
+		moveBackwards();
+		Coordinates expectedCoordinates = new Coordinates(1,0);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	@Test
+	public void roverShouldTurnRightAndMoveBack() {
+		turnRight();
+		moveBackwards();
+		Coordinates expectedCoordinates = new Coordinates(-1,0);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void roverShouldTurnRightTwiceAndMoveForward() {
+		turnRight();
+		turnRight();
+		moveForward();
+		Coordinates expectedCoordinates = new Coordinates(0,-1);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void roverShouldTurnLeftTwiceAndMoveForward() {
+		turnLeft();
+		turnLeft();
+		moveForward();
+		Coordinates expectedCoordinates = new Coordinates(0,-1);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+
 
 }
