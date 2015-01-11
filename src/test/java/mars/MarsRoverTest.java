@@ -13,6 +13,12 @@ public class MarsRoverTest {
 	private MarsRover rover;
 	private ArrayList<RoverCommand> commands;
 	
+	private void newCoordinatesCorrect(Coordinates expectedCoordinates,
+			Coordinates actualCoordinates) {
+		assertEquals(expectedCoordinates.getX(), actualCoordinates.getX());
+		assertEquals(expectedCoordinates.getY(), actualCoordinates.getY());
+	}
+	
 	@Before
 	public void setup() {
 		Coordinates startCoordinates = new Coordinates(0,0);
@@ -32,8 +38,7 @@ public class MarsRoverTest {
 
 		Coordinates actualCoordinates = rover.move(commands);
 		
-		assertEquals(expectedCoordinates.getX(), actualCoordinates.getX());
-		assertEquals(expectedCoordinates.getY(), actualCoordinates.getY());
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
 	}
 	
 	@Test
@@ -43,9 +48,7 @@ public class MarsRoverTest {
 		
 		Coordinates actualCoordinates = rover.move(commands);
 		
-		assertEquals(expectedCoordinates.getX(), actualCoordinates.getY());
-		assertEquals(expectedCoordinates.getY(), actualCoordinates.getX());
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
 	}
-	
 
 }
