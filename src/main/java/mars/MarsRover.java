@@ -1,5 +1,7 @@
 package mars;
 
+import java.util.ArrayList;
+
 public class MarsRover {
 
 	private int x;
@@ -14,10 +16,7 @@ public class MarsRover {
 		return true;
 	}
 
-	public boolean move(String[] commands) {
-		if (commands[0] == null || commands[0].equals(""))
-			return false;
-		
+	public boolean move(ArrayList<RoverCommand> commands) {
 		return true;
 	}
 	
