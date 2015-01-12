@@ -19,7 +19,6 @@ public class MarsRover {
 	}
 
 	public Coordinates move(ArrayList<RoverCommand> commands) {
-
 		for (RoverCommand command : commands) {
 			setDirection(command);
 			moveDirection(command);
@@ -37,34 +36,28 @@ public class MarsRover {
 
 	private void backwardMovement() {
 		if (direction.equals(Direction.NORTH)) {
-			coordinates = new Coordinates(coordinates.getX(),
-					coordinates.getY() - 1);
+			coordinates = createNewCoordinates(0, - 1);
 		} else if (direction.equals(Direction.WEST)) {
-			coordinates = new Coordinates(coordinates.getX() + 1,
-					coordinates.getY());
+			coordinates = createNewCoordinates(1, 0);
 		} else if (direction.equals(Direction.EAST)) {
-			coordinates = new Coordinates(coordinates.getX() - 1,
-					coordinates.getY());
+			coordinates = createNewCoordinates(-1, 0);
 		}
 	}
 
+
+
 	private void forwardMovement() {
 		if (direction.equals(Direction.NORTH))
-			coordinates = new Coordinates(coordinates.getX(),
-					coordinates.getY() + 1);
+			coordinates = createNewCoordinates(0, 1);
 		else if (direction.equals(Direction.SOUTH))
-			coordinates = new Coordinates(coordinates.getX(),
-					coordinates.getY() - 1);
+			coordinates = createNewCoordinates(0, - 1);
 		else if (direction.equals(Direction.EAST))
-			coordinates = new Coordinates(coordinates.getX() + 1,
-					coordinates.getY());
+			coordinates = createNewCoordinates(1, 0);
 		else
-			coordinates = new Coordinates(coordinates.getX() - 1,
-					coordinates.getY());
+			coordinates = createNewCoordinates(-1, 0);
 	}
 
 	private void setDirection(RoverCommand command) {
-
 		Map<Direction, Direction> rightTurnMap = createRightTurnMap();
 		Map<Direction, Direction> leftTurnMap = createLeftTurnMap();
 
@@ -74,7 +67,11 @@ public class MarsRover {
 			direction = rightTurnMap.get(direction);
 		}
 	}
-
+	
+	private Coordinates createNewCoordinates(int adjustX, int adjustY) {
+		return new Coordinates(coordinates.getX() + adjustX, coordinates.getY() + adjustY);
+	}
+	
 	private Map<Direction, Direction> createLeftTurnMap() {
 		Map<Direction, Direction> leftTurnMap = new HashMap<Direction, Direction>();
 		leftTurnMap.put(Direction.NORTH, Direction.WEST);
