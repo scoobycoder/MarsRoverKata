@@ -19,49 +19,58 @@ public class MarsRover {
 	}
 
 	public Coordinates move(ArrayList<RoverCommand> commands) {
-		 
+
 		for (RoverCommand command : commands) {
 			setDirection(command);
 			moveDirection(command);
 		}
-		
+
 		return coordinates;
 	}
 
 	private void moveDirection(RoverCommand command) {
-		
-		if (command == RoverCommand.FORWARD) {
-			if (direction.equals(Direction.NORTH))
-				coordinates = new Coordinates(coordinates.getX(),coordinates.getY() + 1);
-			else if (direction.equals(Direction.SOUTH))
-				coordinates = new Coordinates(coordinates.getX(), coordinates.getY() - 1);
-			else if (direction.equals(Direction.EAST))
-				coordinates = new Coordinates(coordinates.getX() + 1,coordinates.getY());
-			else
-				coordinates = new Coordinates(coordinates.getX() - 1, coordinates.getY());
-		}
-		
-		
-		if (command == RoverCommand.BACKWARD && direction.equals(Direction.NORTH)) {
-			coordinates = new Coordinates(coordinates.getX(), coordinates.getY() - 1);
-		}
-		else if (command == RoverCommand.BACKWARD && direction.equals(Direction.WEST)) {
-			coordinates = new Coordinates(coordinates.getX() + 1, coordinates.getY());
-		}
-		else if (command == RoverCommand.BACKWARD && direction.equals(Direction.EAST)) {
-			coordinates = new Coordinates(coordinates.getX() - 1, coordinates.getY());
+		if (command == RoverCommand.FORWARD)
+			forwardMovement();
+		else if (command == RoverCommand.BACKWARD) 
+			backwardMovement();
+	}
+
+	private void backwardMovement() {
+		if (direction.equals(Direction.NORTH)) {
+			coordinates = new Coordinates(coordinates.getX(),
+					coordinates.getY() - 1);
+		} else if (direction.equals(Direction.WEST)) {
+			coordinates = new Coordinates(coordinates.getX() + 1,
+					coordinates.getY());
+		} else if (direction.equals(Direction.EAST)) {
+			coordinates = new Coordinates(coordinates.getX() - 1,
+					coordinates.getY());
 		}
 	}
 
+	private void forwardMovement() {
+		if (direction.equals(Direction.NORTH))
+			coordinates = new Coordinates(coordinates.getX(),
+					coordinates.getY() + 1);
+		else if (direction.equals(Direction.SOUTH))
+			coordinates = new Coordinates(coordinates.getX(),
+					coordinates.getY() - 1);
+		else if (direction.equals(Direction.EAST))
+			coordinates = new Coordinates(coordinates.getX() + 1,
+					coordinates.getY());
+		else
+			coordinates = new Coordinates(coordinates.getX() - 1,
+					coordinates.getY());
+	}
+
 	private void setDirection(RoverCommand command) {
-		
+
 		Map<Direction, Direction> rightTurnMap = createRightTurnMap();
 		Map<Direction, Direction> leftTurnMap = createLeftTurnMap();
-		
+
 		if (command == RoverCommand.LEFTTURN) {
 			direction = leftTurnMap.get(direction);
-		}
-		else if (command == RoverCommand.RIGHTTURN) {
+		} else if (command == RoverCommand.RIGHTTURN) {
 			direction = rightTurnMap.get(direction);
 		}
 	}
@@ -83,5 +92,5 @@ public class MarsRover {
 		rightTurnMap.put(Direction.WEST, Direction.NORTH);
 		return rightTurnMap;
 	}
-	
+
 }
