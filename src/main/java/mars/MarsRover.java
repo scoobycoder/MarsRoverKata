@@ -48,21 +48,22 @@ public class MarsRover {
 	}
 
 	private void backwardMovement() {
-		if (direction.equals(Direction.NORTH)) {
+		if (north()) {
 			coordinates = createNewCoordinates(NO_MOVE, MOVE_SOUTH);
-		} else if (direction.equals(Direction.WEST)) {
+		} else if (west()) {
 			coordinates = createNewCoordinates(MOVE_EAST, NO_MOVE);
-		} else if (direction.equals(Direction.EAST)) {
+		} else if (east()) {
 			coordinates = createNewCoordinates(MOVE_WEST, NO_MOVE);
-		}
+		} else
+			coordinates = createNewCoordinates(NO_MOVE, MOVE_NORTH);
 	}
 
 	private void forwardMovement() {
-		if (direction.equals(Direction.NORTH))
+		if (north())
 			coordinates = createNewCoordinates(NO_MOVE, MOVE_NORTH);
-		else if (direction.equals(Direction.SOUTH))
+		else if (south())
 			coordinates = createNewCoordinates(NO_MOVE, MOVE_SOUTH);
-		else if (direction.equals(Direction.EAST))
+		else if (east())
 			coordinates = createNewCoordinates(MOVE_EAST, NO_MOVE);
 		else
 			coordinates = createNewCoordinates(MOVE_WEST, NO_MOVE);
@@ -99,6 +100,22 @@ public class MarsRover {
 		rightTurnMap.put(Direction.SOUTH, Direction.WEST);
 		rightTurnMap.put(Direction.WEST, Direction.NORTH);
 		return rightTurnMap;
+	}
+
+	private boolean east() {
+		return direction.equals(Direction.EAST);
+	}
+
+	private boolean west() {
+		return direction.equals(Direction.WEST);
+	}
+
+	private boolean north() {
+		return direction.equals(Direction.NORTH);
+	}
+
+	private boolean south() {
+		return direction.equals(Direction.SOUTH);
 	}
 
 }

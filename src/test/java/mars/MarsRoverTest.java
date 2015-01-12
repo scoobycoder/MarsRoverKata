@@ -102,12 +102,24 @@ public class MarsRoverTest {
 	}
 
 	@Test
-	public void roverShouldMoveBackAndReportCoordinates() {
+	public void roverShouldMoveBack() {
+		turnRight();
+		turnRight();
 		moveBackwards();
-		Coordinates expectedCoordinates = new Coordinates(0, -1);
+		Coordinates expectedCoordinates = new Coordinates(0, 1);
 
 		Coordinates actualCoordinates = rover.move(commands);
 
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void roverShouldTurnRightTwiceAndMoveBack() {
+		moveBackwards();
+		Coordinates expectedCoordinates = new Coordinates(0, -1);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
 		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
 	}
 
