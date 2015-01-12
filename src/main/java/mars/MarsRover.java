@@ -6,6 +6,11 @@ import java.util.Map;
 
 public class MarsRover {
 
+	private static final int MOVE_WEST = -1;
+	private static final int MOVE_EAST = 1;
+	private static final int MOVE_NORTH = 1;
+	private static final int MOVE_SOUTH = -1;
+	private static final int NO_MOVE = 0;
 	private Coordinates coordinates;
 	private Direction direction;
 
@@ -28,50 +33,56 @@ public class MarsRover {
 	}
 
 	private void moveDirection(RoverCommand command) {
-		if (command == RoverCommand.FORWARD)
+		if (forwardCommand(command))
 			forwardMovement();
-		else if (command == RoverCommand.BACKWARD) 
+		else if (backwardCommand(command))
 			backwardMovement();
+	}
+
+	private boolean backwardCommand(RoverCommand command) {
+		return command == RoverCommand.BACKWARD;
+	}
+
+	private boolean forwardCommand(RoverCommand command) {
+		return command == RoverCommand.FORWARD;
 	}
 
 	private void backwardMovement() {
 		if (direction.equals(Direction.NORTH)) {
-			coordinates = createNewCoordinates(0, - 1);
+			coordinates = createNewCoordinates(NO_MOVE, MOVE_SOUTH);
 		} else if (direction.equals(Direction.WEST)) {
-			coordinates = createNewCoordinates(1, 0);
+			coordinates = createNewCoordinates(MOVE_EAST, NO_MOVE);
 		} else if (direction.equals(Direction.EAST)) {
-			coordinates = createNewCoordinates(-1, 0);
+			coordinates = createNewCoordinates(MOVE_WEST, NO_MOVE);
 		}
 	}
 
-
-
 	private void forwardMovement() {
 		if (direction.equals(Direction.NORTH))
-			coordinates = createNewCoordinates(0, 1);
+			coordinates = createNewCoordinates(NO_MOVE, MOVE_NORTH);
 		else if (direction.equals(Direction.SOUTH))
-			coordinates = createNewCoordinates(0, - 1);
+			coordinates = createNewCoordinates(NO_MOVE, MOVE_SOUTH);
 		else if (direction.equals(Direction.EAST))
-			coordinates = createNewCoordinates(1, 0);
+			coordinates = createNewCoordinates(MOVE_EAST, NO_MOVE);
 		else
-			coordinates = createNewCoordinates(-1, 0);
+			coordinates = createNewCoordinates(MOVE_WEST, NO_MOVE);
 	}
 
 	private void setDirection(RoverCommand command) {
 		Map<Direction, Direction> rightTurnMap = createRightTurnMap();
 		Map<Direction, Direction> leftTurnMap = createLeftTurnMap();
 
-		if (command == RoverCommand.LEFTTURN) {
+		if (command == RoverCommand.LEFTTURN)
 			direction = leftTurnMap.get(direction);
-		} else if (command == RoverCommand.RIGHTTURN) {
+		else if (command == RoverCommand.RIGHTTURN)
 			direction = rightTurnMap.get(direction);
-		}
 	}
-	
+
 	private Coordinates createNewCoordinates(int adjustX, int adjustY) {
-		return new Coordinates(coordinates.getX() + adjustX, coordinates.getY() + adjustY);
+		return new Coordinates(coordinates.getX() + adjustX, coordinates.getY()
+				+ adjustY);
 	}
-	
+
 	private Map<Direction, Direction> createLeftTurnMap() {
 		Map<Direction, Direction> leftTurnMap = new HashMap<Direction, Direction>();
 		leftTurnMap.put(Direction.NORTH, Direction.WEST);
