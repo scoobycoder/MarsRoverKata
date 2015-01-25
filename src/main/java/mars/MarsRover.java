@@ -42,12 +42,14 @@ public class MarsRover {
 	}
 
 	private void backwardMovement() {
-		Mover mover = new BackwardMover(coordinates);
+		DirectionFinder directionFinder = new DirectionFinder(direction);
+		Mover mover = new BackwardMover(directionFinder, coordinates);
 		coordinates = mover.move(direction);
 	}
 
 	private void forwardMovement() {
-		Mover mover = new ForwardMover(coordinates);
+		DirectionFinder directionFinder = new DirectionFinder(direction);
+		Mover mover = new ForwardMover(directionFinder, coordinates);
 		coordinates = mover.move(direction);
 	}
 

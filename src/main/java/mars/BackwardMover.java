@@ -2,9 +2,11 @@ package mars;
 
 public class BackwardMover implements Mover {
 
+	private DirectionFinder directionFinder;
 	private Coordinates coordinates;
 
-	public BackwardMover(Coordinates coordinates) {
+	public BackwardMover(DirectionFinder directionFinder, Coordinates coordinates) {
+		this.directionFinder = directionFinder;
 		this.coordinates = coordinates;
 	}
 	
