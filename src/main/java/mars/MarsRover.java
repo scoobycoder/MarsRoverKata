@@ -14,10 +14,6 @@ public class MarsRover {
 		direction = startDirection;
 	}
 
-	public boolean alive() {
-		return true;
-	}
-
 	public Coordinates move(ArrayList<RoverCommand> commands) {
 		for (RoverCommand command : commands)
 			move(command);

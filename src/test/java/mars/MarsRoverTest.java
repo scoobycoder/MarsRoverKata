@@ -54,11 +54,6 @@ public class MarsRoverTest {
 	}
 
 	@Test
-	public void roverShouldTakeInitialCoordinates() {
-		assertEquals(true, rover.alive());
-	}
-
-	@Test
 	public void roverShouldReceiveOneCommand() {
 		moveForward();
 		Coordinates expectedCoordinates = new Coordinates(0, 1);
