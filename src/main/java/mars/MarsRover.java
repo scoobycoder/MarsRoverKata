@@ -19,12 +19,15 @@ public class MarsRover {
 	}
 
 	public Coordinates move(ArrayList<RoverCommand> commands) {
-		for (RoverCommand command : commands) {
-			setDirection(command);
-			moveDirection(command);
-		}
+		for (RoverCommand command : commands)
+			move(command);
 
 		return coordinates;
+	}
+
+	private void move(RoverCommand command) {
+		setDirection(command);
+		moveDirection(command);
 	}
 
 	private void moveDirection(RoverCommand command) {
@@ -43,12 +46,12 @@ public class MarsRover {
 	}
 
 	private void backwardMovement() {
-		BackwardMover mover = new BackwardMover(coordinates);
+		Mover mover = new BackwardMover(coordinates);
 		coordinates = mover.move(direction);
 	}
 
 	private void forwardMovement() {
-		ForwardMover mover = new ForwardMover(coordinates);
+		Mover mover = new ForwardMover(coordinates);
 		coordinates = mover.move(direction);
 	}
 
