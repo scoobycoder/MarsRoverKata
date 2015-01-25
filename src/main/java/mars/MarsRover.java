@@ -6,11 +6,6 @@ import java.util.Map;
 
 public class MarsRover {
 
-	private static final int MOVE_WEST = -1;
-	private static final int MOVE_EAST = 1;
-	private static final int MOVE_NORTH = 1;
-	private static final int MOVE_SOUTH = -1;
-	private static final int NO_MOVE = 0;
 	private Coordinates coordinates;
 	private Direction direction;
 
@@ -48,25 +43,13 @@ public class MarsRover {
 	}
 
 	private void backwardMovement() {
-		if (north()) {
-			coordinates = createNewCoordinates(NO_MOVE, MOVE_SOUTH);
-		} else if (west()) {
-			coordinates = createNewCoordinates(MOVE_EAST, NO_MOVE);
-		} else if (east()) {
-			coordinates = createNewCoordinates(MOVE_WEST, NO_MOVE);
-		} else
-			coordinates = createNewCoordinates(NO_MOVE, MOVE_NORTH);
+		BackwardMover mover = new BackwardMover(coordinates);
+		coordinates = mover.move(direction);
 	}
 
 	private void forwardMovement() {
-		if (north())
-			coordinates = createNewCoordinates(NO_MOVE, MOVE_NORTH);
-		else if (south())
-			coordinates = createNewCoordinates(NO_MOVE, MOVE_SOUTH);
-		else if (east())
-			coordinates = createNewCoordinates(MOVE_EAST, NO_MOVE);
-		else
-			coordinates = createNewCoordinates(MOVE_WEST, NO_MOVE);
+		ForwardMover mover = new ForwardMover(coordinates);
+		coordinates = mover.move(direction);
 	}
 
 	private void setDirection(RoverCommand command) {
@@ -77,11 +60,6 @@ public class MarsRover {
 			direction = leftTurnMap.get(direction);
 		else if (command == RoverCommand.RIGHTTURN)
 			direction = rightTurnMap.get(direction);
-	}
-
-	private Coordinates createNewCoordinates(int adjustX, int adjustY) {
-		return new Coordinates(coordinates.getX() + adjustX, coordinates.getY()
-				+ adjustY);
 	}
 
 	private Map<Direction, Direction> createLeftTurnMap() {
@@ -100,22 +78,6 @@ public class MarsRover {
 		rightTurnMap.put(Direction.SOUTH, Direction.WEST);
 		rightTurnMap.put(Direction.WEST, Direction.NORTH);
 		return rightTurnMap;
-	}
-
-	private boolean east() {
-		return direction.equals(Direction.EAST);
-	}
-
-	private boolean west() {
-		return direction.equals(Direction.WEST);
-	}
-
-	private boolean north() {
-		return direction.equals(Direction.NORTH);
-	}
-
-	private boolean south() {
-		return direction.equals(Direction.SOUTH);
 	}
 
 }

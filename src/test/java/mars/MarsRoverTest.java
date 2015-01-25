@@ -26,7 +26,6 @@ public class MarsRoverTest {
 	}
 
 	private void moveBackwards() {
-
 		commands.add(RoverCommand.BACKWARD);
 	}
 
