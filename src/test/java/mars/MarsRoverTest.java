@@ -49,7 +49,8 @@ public class MarsRoverTest {
 	@Before
 	public void setup() {
 		Coordinates startCoordinates = new Coordinates(0, 0);
-		rover = new MarsRover(startCoordinates, Direction.NORTH);
+		Turner turner = new DirectionTurner();
+		rover = new MarsRover(startCoordinates, Direction.NORTH, turner);
 		commands = new ArrayList<RoverCommand>();
 	}
 
