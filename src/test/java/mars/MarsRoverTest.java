@@ -45,6 +45,13 @@ public class MarsRoverTest {
 				turnLeft();
 		}
 	}
+	
+	private void moveTimes() {
+		moveForward();
+		moveForward();
+		moveForward();
+		moveForward();
+	}
 
 	@Before
 	public void setup() {
@@ -204,6 +211,19 @@ public class MarsRoverTest {
 
 		Coordinates actualCoordinates = rover.move(commands);
 
+		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
+	}
+	
+	@Test
+	public void roverShouldMoveForwardFourTimesTurnLeftAndMoveFourMoreTimes() {
+		moveTimes();
+		turnLeft();
+		moveTimes();
+
+		Coordinates expectedCoordinates = new Coordinates(-4, 4);
+		
+		Coordinates actualCoordinates = rover.move(commands);
+		
 		newCoordinatesCorrect(expectedCoordinates, actualCoordinates);
 	}
 
