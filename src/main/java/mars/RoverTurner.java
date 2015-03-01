@@ -3,7 +3,7 @@ package mars;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DirectionTurner implements Turner {
+public class RoverTurner implements Turner {
 
 	@Override
 	public Direction turn(RoverCommand command, Direction direction) {

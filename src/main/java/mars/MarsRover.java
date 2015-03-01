@@ -9,11 +9,13 @@ public class MarsRover {
 	private Coordinates coordinates;
 	private Direction direction;
 	private Turner turner;
+	private Mover mover;
 
-	public MarsRover(Coordinates startCoordinates, Direction startDirection, Turner turner) {
+	public MarsRover(Coordinates startCoordinates, Direction startDirection, Turner turner, Mover mover) {
 		coordinates = startCoordinates;
 		direction = startDirection;
 		this.turner = turner;
+		this.mover = mover;
 	}
 
 	public Coordinates move(ArrayList<RoverCommand> commands) {
@@ -29,30 +31,26 @@ public class MarsRover {
 	}
 
 	private void moveDirection(RoverCommand command) {
-		if (forwardCommand(command))
+		if (isForwardCommand(command))
 			forwardMovement();
-		else if (backwardCommand(command))
+		else if (isBackwardCommand(command))
 			backwardMovement();
 	}
 
-	private boolean backwardCommand(RoverCommand command) {
+	private boolean isBackwardCommand(RoverCommand command) {
 		return command == RoverCommand.BACKWARD;
 	}
 
-	private boolean forwardCommand(RoverCommand command) {
+	private boolean isForwardCommand(RoverCommand command) {
 		return command == RoverCommand.FORWARD;
 	}
 
 	private void backwardMovement() {
-		DirectionFinder directionFinder = new DirectionFinder(direction);
-		Mover mover = new BackwardMover(directionFinder, coordinates);
-		coordinates = mover.move(direction);
+		coordinates = mover.moveBackward(direction);
 	}
 
 	private void forwardMovement() {
-		DirectionFinder directionFinder = new DirectionFinder(direction);
-		Mover mover = new ForwardMover(directionFinder, coordinates);
-		coordinates = mover.move(direction);
+		coordinates = mover.moveForward(direction);
 	}
 
 	private void setDirection(RoverCommand command) {

@@ -2,6 +2,7 @@ package mars;
 
 public interface Mover {
 	
-	public Coordinates move(Direction startDirection);
+	public Coordinates moveForward(Direction startDirection);
+	public Coordinates moveBackward(Direction startDirection);
 	
 }

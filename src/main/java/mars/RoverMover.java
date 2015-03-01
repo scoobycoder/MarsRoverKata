@@ -1,23 +1,35 @@
 package mars;
 
-public class BackwardMover implements Mover {
+public class RoverMover implements Mover {
 
-	private DirectionFinder directionFinder;
 	private Coordinates coordinates;
-
-	public BackwardMover(DirectionFinder directionFinder, Coordinates coordinates) {
-		this.directionFinder = directionFinder;
+	
+	public RoverMover(Coordinates coordinates) {
 		this.coordinates = coordinates;
 	}
 	
 	@Override
-	public Coordinates move(Direction directionPointed) {
-		
-		if (north(directionPointed)) {
-			coordinates = createNewCoordinates(0, -1);
-		} else if (west(directionPointed)) {
+	public Coordinates moveForward(Direction startDirection) {
+		if (north(startDirection)) {
+			coordinates = createNewCoordinates(0, 1);
+		} else if (west(startDirection)) {
+			coordinates = createNewCoordinates(-1, 0);
+		} else if (east(startDirection)) {
 			coordinates = createNewCoordinates(1, 0);
-		} else if (east(directionPointed)) {
+		} else
+			coordinates = createNewCoordinates(0, -1);
+		
+		return coordinates;
+	}
+
+	@Override
+	public Coordinates moveBackward(Direction startDirection) {
+		
+		if (north(startDirection)) {
+			coordinates = createNewCoordinates(0, -1);
+		} else if (west(startDirection)) {
+			coordinates = createNewCoordinates(1, 0);
+		} else if (east(startDirection)) {
 			coordinates = createNewCoordinates(-1, 0);
 		} else
 			coordinates = createNewCoordinates(0, 1);
