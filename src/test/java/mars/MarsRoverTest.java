@@ -243,4 +243,13 @@ public class MarsRoverTest {
 		newCoordinatesCorrect(new Coordinates(-1, 1), rover.move(commands));
 	}
 	
+	@Test
+	public void roverShouldBeStoppedFromMovingBackwardsWhenRockBehindIt() {
+		moveBackward();
+		detectRock();
+		moveBackward();
+		
+		newCoordinatesCorrect(new Coordinates(0, -1), rover.move(commands));
+	}
+	
 }
