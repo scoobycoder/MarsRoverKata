@@ -3,11 +3,13 @@ package mars;
 public class RoverMover implements Mover {
 
 	private Coordinates coordinates;
+	private Globe globe;
 	
-	public RoverMover(Coordinates coordinates) {
+	public RoverMover(Coordinates coordinates, Globe globe) {
 		this.coordinates = coordinates;
+		this.globe = globe;
 	}
-	
+
 	@Override
 	public Coordinates moveForward(Direction startDirection) {
 		if (north(startDirection)) {
@@ -18,8 +20,12 @@ public class RoverMover implements Mover {
 			coordinates = createNewCoordinates(1, 0);
 		} else
 			coordinates = createNewCoordinates(0, -1);
+		
+		printCoordinates();
+		
 		return coordinates;
 	}
+
 
 	@Override
 	public Coordinates moveBackward(Direction startDirection) {
@@ -33,12 +39,25 @@ public class RoverMover implements Mover {
 		} else
 			coordinates = createNewCoordinates(0, 1);
 		
+		printCoordinates();
+
 		return coordinates;
 	}
 	
+	private void printCoordinates() {
+		System.out.println(coordinates.getX() + ", " + coordinates.getY());
+	}
+	
 	private Coordinates createNewCoordinates(int adjustX, int adjustY) {
+		if (isAtYBoundary())
+			return new Coordinates(coordinates.getX(), 0);
+		
 		return new Coordinates(coordinates.getX() + adjustX, coordinates.getY()
 				+ adjustY);
+	}
+
+	private boolean isAtYBoundary() {
+		return Math.abs(coordinates.getY()) == Math.abs(globe.getyMax());
 	}
 	
 	private boolean east(Direction direction) {

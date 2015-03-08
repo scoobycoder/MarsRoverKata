@@ -25,7 +25,7 @@ public class MarsRoverTest {
 		commands.add(RoverCommand.FORWARD);
 	}
 
-	private void moveBackwards() {
+	private void moveBackward() {
 		commands.add(RoverCommand.BACKWARD);
 	}
 
@@ -57,7 +57,7 @@ public class MarsRoverTest {
 	public void setup() {
 		Coordinates startCoordinates = new Coordinates(0, 0);
 		Turner turner = new RoverTurner();
-		Mover mover = new RoverMover(startCoordinates);
+		Mover mover = new RoverMover(startCoordinates, new Globe(10, 10));
 		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
 		commands = new ArrayList<RoverCommand>();
 	}
@@ -92,27 +92,27 @@ public class MarsRoverTest {
 	public void roverShouldMoveBack() {
 		turnRight();
 		turnRight();
-		moveBackwards();
+		moveBackward();
 		newCoordinatesCorrect(new Coordinates(0, 1), rover.move(commands));
 	}
 	
 	@Test
 	public void roverShouldTurnRightTwiceAndMoveBack() {
-		moveBackwards();
+		moveBackward();
 		newCoordinatesCorrect(new Coordinates(0, -1), rover.move(commands));
 	}
 
 	@Test
 	public void roverShouldTurnLeftAndMoveBack() {
 		turnLeft();
-		moveBackwards();
+		moveBackward();
 		newCoordinatesCorrect(new Coordinates(1, 0), rover.move(commands));
 	}
 
 	@Test
 	public void roverShouldTurnRightAndMoveBack() {
 		turnRight();
-		moveBackwards();
+		moveBackward();
 		newCoordinatesCorrect(new Coordinates(-1, 0), rover.move(commands));
 	}
 
@@ -170,12 +170,40 @@ public class MarsRoverTest {
 	public void roverStartPointingWestShouldMoveWestIfForwardCalled() {
 		Turner turner = new RoverTurner();
 		Coordinates startCoordinates = new Coordinates(0, 0);
-		Mover mover = new RoverMover(startCoordinates);
+		Mover mover = new RoverMover(startCoordinates, new Globe(5, 5));
 		rover = new MarsRover(startCoordinates, Direction.WEST, turner, mover);
 		
 		moveForward();
 		
 		newCoordinatesCorrect(new Coordinates(-1, 0), rover.move(commands));
 	}
-
+	
+	@Test
+	public void roverShouldReturnToSamePointIfGlobeOneYDistance() {
+		Turner turner = new RoverTurner();
+		Coordinates startCoordinates = new Coordinates(0, 0);
+		Mover mover = new RoverMover(startCoordinates, new Globe(1, 1));
+		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
+		
+		moveForward();
+		moveForward();
+		moveForward();
+		
+		newCoordinatesCorrect(new Coordinates(0, 1), rover.move(commands));
+	}
+	
+	@Test
+	public void roverShouldReturnToSamePointIfGlobeOneYDistanceMovingBackward() {
+		Turner turner = new RoverTurner();
+		Coordinates startCoordinates = new Coordinates(0, 0);
+		Mover mover = new RoverMover(startCoordinates, new Globe(1, 1));
+		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
+		
+		moveBackward();
+		moveBackward();
+		moveBackward();
+		
+		newCoordinatesCorrect(new Coordinates(0, -1), rover.move(commands));
+	}
+	
 }
