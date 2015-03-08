@@ -41,6 +41,10 @@ public class MarsRoverTest {
 		commands.add(RoverCommand.RIGHTTURN);
 	}
 	
+	private void detectRock() {
+		commands.add(RoverCommand.DETECTROCK);
+	}
+	
 	private void turnTimes(String direction, int times) {
 		for (int i = 0; i < times; i++) {
 			if (direction.equals(RIGHT))
@@ -218,6 +222,25 @@ public class MarsRoverTest {
 		moveTimes(BACKWARD, 3);
 		
 		newCoordinatesCorrect(new Coordinates(1, 0), rover.move(commands));
+	}
+	
+	@Test
+	public void roverShouldBeStoppedByRocksInFrontOfIt() {
+		moveForward();
+		detectRock();
+		moveForward();
+		
+		newCoordinatesCorrect(new Coordinates(0, 1), rover.move(commands));
+	}
+	
+	@Test 
+	public void roverShouldBeAbleToDivertFromRocks() {
+		moveForward();
+		detectRock();
+		turnLeft();
+		moveForward();
+		
+		newCoordinatesCorrect(new Coordinates(-1, 1), rover.move(commands));
 	}
 	
 }

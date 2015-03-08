@@ -6,12 +6,17 @@ import java.util.Map;
 
 public class MarsRover {
 
+	private static final RoverCommand RIGHTTURN = RoverCommand.RIGHTTURN;
+	private static final RoverCommand LEFTTURN = RoverCommand.LEFTTURN;
+	private static final RoverCommand DETECTROCK = RoverCommand.DETECTROCK;
 	private Coordinates coordinates;
 	private Direction direction;
 	private Turner turner;
 	private Mover mover;
+	private boolean rockDetected;
 
-	public MarsRover(Coordinates startCoordinates, Direction startDirection, Turner turner, Mover mover) {
+	public MarsRover(Coordinates startCoordinates, Direction startDirection,
+			Turner turner, Mover mover) {
 		coordinates = startCoordinates;
 		direction = startDirection;
 		this.turner = turner;
@@ -19,12 +24,34 @@ public class MarsRover {
 	}
 
 	public Coordinates move(ArrayList<RoverCommand> commands) {
-		for (RoverCommand command : commands)
-			move(command);
-
+		rockDetected = false;
+		for (RoverCommand command : commands) {
+			checkForRocks(command);
+			resetRockDetectedWhenTurning(command);
+			if (noRocks())
+				move(command);
+		}
 		return coordinates;
 	}
-	
+
+	private boolean noRocks() {
+		return rockDetected == false;
+	}
+
+	private void checkForRocks(RoverCommand command) {
+		if (command == DETECTROCK)
+			rockDetected = true;
+	}
+
+	private void resetRockDetectedWhenTurning(RoverCommand command) {
+		if (isTurnCommand(command))
+			rockDetected = false;
+	}
+
+	private boolean isTurnCommand(RoverCommand command) {
+		return command == LEFTTURN || command == RIGHTTURN;
+	}
+
 	private void move(RoverCommand command) {
 		setDirection(command);
 		moveDirection(command);
