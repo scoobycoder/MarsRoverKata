@@ -46,11 +46,12 @@ public class MarsRoverTest {
 		}
 	}
 	
-	private void moveForwardFourTimes() {
-		moveForward();
-		moveForward();
-		moveForward();
-		moveForward();
+	private void moveTimes(MoveDirection direction, int times) {
+		for(int i = 0; i < times; i++)
+			if (direction == MoveDirection.FORWARD)
+				moveForward();
+			else
+				moveBackward();
 	}
 
 	@Before
@@ -160,9 +161,9 @@ public class MarsRoverTest {
 	
 	@Test
 	public void roverShouldMoveForwardFourTimesTurnLeftAndMoveFourMoreTimes() {
-		moveForwardFourTimes();
+		moveTimes(MoveDirection.FORWARD, 4);
 		turnLeft();
-		moveForwardFourTimes();
+		moveTimes(MoveDirection.FORWARD, 4);
 		newCoordinatesCorrect(new Coordinates(-4, 4), rover.move(commands));
 	}
 		
@@ -185,9 +186,7 @@ public class MarsRoverTest {
 		Mover mover = new RoverMover(startCoordinates, new Globe(1, 1));
 		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
 		
-		moveForward();
-		moveForward();
-		moveForward();
+		moveTimes(MoveDirection.FORWARD, 3);
 		
 		newCoordinatesCorrect(new Coordinates(0, 1), rover.move(commands));
 	}
@@ -199,9 +198,7 @@ public class MarsRoverTest {
 		Mover mover = new RoverMover(startCoordinates, new Globe(1, 1));
 		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
 		
-		moveBackward();
-		moveBackward();
-		moveBackward();
+		moveTimes(MoveDirection.BACKWARD, 3);
 		
 		newCoordinatesCorrect(new Coordinates(0, -1), rover.move(commands));
 	}
@@ -214,9 +211,7 @@ public class MarsRoverTest {
 		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
 		
 		turnLeft();
-		moveForward();
-		moveForward();
-		moveForward();
+		moveTimes(MoveDirection.FORWARD, 3);
 		
 		newCoordinatesCorrect(new Coordinates(-1, 0), rover.move(commands));
 	}
@@ -229,9 +224,7 @@ public class MarsRoverTest {
 		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
 		
 		turnLeft();
-		moveBackward();
-		moveBackward();
-		moveBackward();
+		moveTimes(MoveDirection.BACKWARD, 3);
 		
 		newCoordinatesCorrect(new Coordinates(1, 0), rover.move(commands));
 	}

@@ -53,7 +53,7 @@ public class RoverMover implements Mover {
 			return new Coordinates(coordinates.getX(), 0);
 		
 		if (isAtXBoundary())
-				return new Coordinates(0, coordinates.getY());
+			return new Coordinates(0, coordinates.getY());
 		
 		return new Coordinates(coordinates.getX() + adjustX, coordinates.getY()
 				+ adjustY);
