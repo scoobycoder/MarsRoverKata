@@ -219,7 +219,5 @@ public class MarsRoverTest {
 		
 		newCoordinatesCorrect(new Coordinates(1, 0), rover.move(commands));
 	}
-
-
 	
 }

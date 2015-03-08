@@ -6,25 +6,16 @@ public class Globe {
 	private int yMax;
 
 	public Globe(int xMax, int yMax) {
-		this.setxMax(xMax);
+		this.xMax = xMax;
 		this.yMax = yMax;
 	}
 	
-	public int getyMax() {
+	public int getYMax() {
 		return yMax;
 	}
 
-	public void setyMax(int yMax) {
-		this.yMax = yMax;
-	}
-
-
-	public int getxMax() {
+	public int getXMax() {
 		return xMax;
-	}
-
-	public void setxMax(int xMax) {
-		this.xMax = xMax;
 	}
 
 }

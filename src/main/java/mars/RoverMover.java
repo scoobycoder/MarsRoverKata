@@ -60,11 +60,11 @@ public class RoverMover implements Mover {
 	}
 
 	private boolean isAtXBoundary() {
-		return Math.abs(coordinates.getX()) == Math.abs(globe.getxMax());
+		return Math.abs(coordinates.getX()) == Math.abs(globe.getXMax());
 	}
 
 	private boolean isAtYBoundary() {
-		return Math.abs(coordinates.getY()) == Math.abs(globe.getyMax());
+		return Math.abs(coordinates.getY()) == Math.abs(globe.getYMax());
 	}
 	
 	private boolean east(Direction direction) {
