@@ -163,9 +163,19 @@ public class MarsRoverTest {
 		moveForwardFourTimes();
 		turnLeft();
 		moveForwardFourTimes();
-		Coordinates actualCoordinates = rover.move(commands);
+		newCoordinatesCorrect(new Coordinates(-4, 4), rover.move(commands));
+	}
 		
-		newCoordinatesCorrect(new Coordinates(-4, 4), actualCoordinates);
+	@Test
+	public void roverStartPointingWestShouldMoveWestIfForwardCalled() {
+		Turner turner = new RoverTurner();
+		Coordinates startCoordinates = new Coordinates(0, 0);
+		Mover mover = new RoverMover(startCoordinates);
+		rover = new MarsRover(startCoordinates, Direction.WEST, turner, mover);
+		
+		moveForward();
+		
+		newCoordinatesCorrect(new Coordinates(-1, 0), rover.move(commands));
 	}
 
 }

@@ -18,7 +18,6 @@ public class RoverMover implements Mover {
 			coordinates = createNewCoordinates(1, 0);
 		} else
 			coordinates = createNewCoordinates(0, -1);
-		
 		return coordinates;
 	}
 

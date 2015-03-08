@@ -24,7 +24,7 @@ public class MarsRover {
 
 		return coordinates;
 	}
-
+	
 	private void move(RoverCommand command) {
 		setDirection(command);
 		moveDirection(command);
