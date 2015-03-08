@@ -206,4 +206,34 @@ public class MarsRoverTest {
 		newCoordinatesCorrect(new Coordinates(0, -1), rover.move(commands));
 	}
 	
+	@Test
+	public void roverShouldReturnToSamePointIfGlobeOneXDistanceMovingForward() {
+		Turner turner = new RoverTurner();
+		Coordinates startCoordinates = new Coordinates(0, 0);
+		Mover mover = new RoverMover(startCoordinates, new Globe(1, 1));
+		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
+		
+		turnLeft();
+		moveForward();
+		moveForward();
+		moveForward();
+		
+		newCoordinatesCorrect(new Coordinates(-1, 0), rover.move(commands));
+	}
+	
+	@Test
+	public void roverShouldReturnToSamePointIfGlobeOneXDistanceMovingBackward() {
+		Turner turner = new RoverTurner();
+		Coordinates startCoordinates = new Coordinates(0, 0);
+		Mover mover = new RoverMover(startCoordinates, new Globe(1, 1));
+		rover = new MarsRover(startCoordinates, Direction.NORTH, turner, mover);
+		
+		turnLeft();
+		moveBackward();
+		moveBackward();
+		moveBackward();
+		
+		newCoordinatesCorrect(new Coordinates(1, 0), rover.move(commands));
+	}
+	
 }

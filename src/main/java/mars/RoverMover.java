@@ -52,8 +52,15 @@ public class RoverMover implements Mover {
 		if (isAtYBoundary())
 			return new Coordinates(coordinates.getX(), 0);
 		
+		if (isAtXBoundary())
+				return new Coordinates(0, coordinates.getY());
+		
 		return new Coordinates(coordinates.getX() + adjustX, coordinates.getY()
 				+ adjustY);
+	}
+
+	private boolean isAtXBoundary() {
+		return Math.abs(coordinates.getX()) == Math.abs(globe.getxMax());
 	}
 
 	private boolean isAtYBoundary() {
